@@ -3,7 +3,6 @@
 local default_plugins = {
 
   "nvim-lua/plenary.nvim",
-
   {
     "NvChad/base46",
     branch = "v2.0",
@@ -11,13 +10,11 @@ local default_plugins = {
       require("base46").load_all_highlights()
     end,
   },
-
   {
     "NvChad/ui",
     branch = "v2.0",
     lazy = false,
   },
-
   {
     "NvChad/nvterm",
     init = function()
@@ -28,7 +25,6 @@ local default_plugins = {
       require("nvterm").setup(opts)
     end,
   },
-
   {
     "NvChad/nvim-colorizer.lua",
     event = "User FilePost",
@@ -55,15 +51,16 @@ local default_plugins = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    version = "2.20.7",
+    tag = "v3.6.1",
     event = "User FilePost",
+    main = "ibl",
     opts = function()
       return require("plugins.configs.others").blankline
     end,
     config = function(_, opts)
       require("core.utils").load_mappings "blankline"
       dofile(vim.g.base46_cache .. "blankline")
-      require("indent_blankline").setup(opts)
+      require("ibl").setup(opts)
     end,
   },
 
@@ -172,7 +169,6 @@ local default_plugins = {
       require("cmp").setup(opts)
     end,
   },
-
   {
     "numToStr/Comment.nvim",
     keys = {
@@ -240,6 +236,14 @@ local default_plugins = {
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
+    end,
+  },
+  {
+    "Wansmer/sibling-swap.nvim",
+    lazy = false,
+    requires = { "nvim-treesitter" },
+    config = function()
+      require("sibling-swap").setup()
     end,
   },
 }
